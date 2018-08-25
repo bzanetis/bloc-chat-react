@@ -19,7 +19,7 @@ class App extends Component {
       <div className="App">
        <div className="sidebar">
         <header>
-         <h1>Bloc Chat React</h1>
+         <h1>Bloc Chat!</h1>
         </header>
         <RoomList
           firebase={firebase}
