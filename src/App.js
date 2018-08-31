@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList.js';
+import MessageList from './components/MessageList.js';
 
 var config = {
     apiKey: "AIzaSyAHgQn_8i6aeGICg_EYCw1XBs9kHxwzF_o",
@@ -15,6 +16,17 @@ var config = {
 
 
 class App extends Component {
+  constructor(props){
+      super(props);
+       this.state = {
+         activeRoom :''
+      }
+      this.setCurrentRoom = this.setCurrentRoom.bind(this);
+    }
+    setCurrentRoom(room){
+        this.setState({activeRoom: room})
+       }
+
   render() {
     return (
       <div className="App">
@@ -22,9 +34,19 @@ class App extends Component {
         <header>
          <h1>Bloc Chat React</h1>
         </header>
+
         <RoomList
+          activeRoom = {this.state.activeRoom}
+          setCurrentRoom= {this.setCurrentRoom}
           firebase={firebase}
         />
+
+        </div>
+        <div>
+          <MessageList
+            firebase={firebase}
+            activeRoom= {this.state.activeRoom }
+           />
         </div>
       </div>
     );
