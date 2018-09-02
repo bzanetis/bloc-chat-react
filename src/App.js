@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as firebase from 'firebase';
 import RoomList from './components/RoomList.js';
 import MessageList from './components/MessageList.js';
+import * as firebase from 'firebase';
 
 var config = {
     apiKey: "AIzaSyAHgQn_8i6aeGICg_EYCw1XBs9kHxwzF_o",
@@ -36,9 +36,10 @@ class App extends Component {
         </header>
 
         <RoomList
+          firebase={firebase}
           activeRoom = {this.state.activeRoom}
           setCurrentRoom= {this.setCurrentRoom}
-          firebase={firebase}
+
         />
 
         </div>

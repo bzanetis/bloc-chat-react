@@ -10,7 +10,7 @@ class MessageList extends Component {
       this.state={
           message: [],
           Messages: [{
-             username: '',
+             username:  '',
              content: '',
              roomID: '',
              sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
@@ -47,17 +47,17 @@ class MessageList extends Component {
             <ul id="message-list">
                 {this.state.message
 
-                .filter(message =>message.roomId === activeRoomKey)
-                .map((message,index))} =>
-                <div key={index}>
+                  .filter(message =>message.roomId === activeRoomKey)
+                  .map((message,index) =>
+                  <div key={index}>
                     <li>{message.username} <br></br> {message.content}</li>
                     <li>{message.sentAt}</li>
-                </div>
-                )
-               }
+                  </div>
+                  )
+                  }
             </ul>
           </div>
-        );
+        )
    }
 }
 
