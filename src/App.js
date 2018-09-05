@@ -24,6 +24,7 @@ class App extends Component {
       this.setCurrentRoom = this.setCurrentRoom.bind(this);
     }
     setCurrentRoom(room){
+      console.log(room);
         this.setState({activeRoom: room})
        }
 
