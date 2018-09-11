@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 
 
 
+
+
+
 class MessageList extends Component {
   constructor(props) {
       super(props);
@@ -14,10 +17,12 @@ class MessageList extends Component {
              content: '',
              roomID: '',
              sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
-          }]
+          }],
+             newMessages: '',
          }
 
-       this.MessagesRef= this.props.firebase.database().ref('Messages');
+         this.MessagesRef=this.props.firebase.database().ref('Messages');
+         this.createMessages=this.createMessages.bind(this);
   }
 
 
@@ -29,6 +34,19 @@ class MessageList extends Component {
         this.setState({ message: this.state.message.concat(message)});
       } );
      }
+
+     createMessages(newMessages){
+          this.MessagesRef.push({
+             username: this.props.user ? this.props.user.displayName : 'Guest',
+             content: this.state.newMessages,
+             roomId: this.props.activeRoom.key,
+             sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
+           });
+          this.setState ({newMessages:''});
+     }
+       handleChange(e){
+         this.setState({newMessages: e.target.value});
+      }
 
 
 
@@ -50,12 +68,17 @@ class MessageList extends Component {
                   .filter(message =>message.roomId === this.props.activeRoom.key)
                   .map((message,index) =>
                   <div key={index}>
-                    <li>{message.username} <br></br> {message.content}</li>
-                    <li>{message.sentAt}</li>
+                    <li className="new_name">{message.username}</li>
+                    <li className="content">{message.content}</li>
+                    
                   </div>
                   )
                   }
             </ul>
+            <form id="create-message" onSubmit={ (e) => { e.preventDefault(); this.createMessages(this.state.newMessages) } }>
+               <input type="text" value={ this.state.newMessages } onChange={(e)=>this.handleChange(e)} placeholder="Please Type here" />
+               <input type="submit" />
+            </form>
           </div>
         )
    }
